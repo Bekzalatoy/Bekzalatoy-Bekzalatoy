@@ -1,30 +1,37 @@
 # Привет! Я Bek 👋
 
-🥊 Боксёр | 💻 Начинающий разработчик | 📍 Владивосток
+ Боксёр | 💻 Начинающий разработчик | 📍 Владивосток
 
 ---
 
-## 🙋♂️ Обо мне
+## 📊 GitHub статистика
 
-Меня зовут Бек. Я увлекаюсь боксом и только начинаю свой путь в программировании.
+![GitHub stats](https://github-readme-stats.vercel.app/api?username=Bekzalatoy&show_icons=true&theme=radical&count_private=true)
+![Streak](https://streak-stats.demolab.com?user=Bekzalatoy&theme=radical)
 
-## 🎯 Мои цели
+---
 
-- Изучить основы программирования
-- Создать свои первые проекты
-- Развиваться каждый день
+##  Достижения
+
+![Trophies](https://github-profile-trophy.vercel.app/?username=Bekzalatoy&theme=radical&row=1)
+
+---
+
+## 🙋‍♂️ Обо мне
+
+Меня зовут Бекзала. Я увлекаюсь боксом и изучаю программирование.
 
 ## 💪 Интересы
 
--  Бокс
+- 🥊 Бокс
 - 💻 Код
 - 📚 Самообразование
 
-## 📬 Контакты
+##  Контакты
 
 - 📧 shorobidinovsanjarbek@gmail.com
-- 📍 Владивосток
+-  Владивосток
 
 ---
 
-> *"Дорогу осилит идущий"* 🚶‍♂️
+> *"Дорогу осилит идущий"* ‍♂️
