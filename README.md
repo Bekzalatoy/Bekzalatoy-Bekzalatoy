@@ -4,7 +4,7 @@
 
 ---
 
-## 📊 GitHub статистика
+##  GitHub статистика
 
 ![GitHub stats](https://github-readme-stats.vercel.app/api?username=Bekzalatoy&show_icons=true&theme=radical&count_private=true)
 ![Streak](https://streak-stats.demolab.com?user=Bekzalatoy&theme=radical)
