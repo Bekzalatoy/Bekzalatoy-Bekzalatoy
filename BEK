@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задачи</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 80px;
+        }
+
+        .app {
+            width: 100%;
+            max-width: 520px;
+            background: white;
+            border-radius: 20px;
+            padding: 40px 35px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            animation: slideUp 0.6s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: #a0a0b0;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        /* Поле ввода */
+        .input-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .input-row input[type="text"] {
+            flex: 1;
+            padding: 16px 20px;
+            border: 2px solid #e8e8f0;
+            border-radius: 14px;
+            font-size: 1rem;
+            outline: none;
+            background: #fafafe;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .input-row input[type="text"]:focus {
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .input-row input[type="text"]::placeholder {
+            color: #b0b0c0;
+        }
+
+        .add-btn {
+            width: 52px;
+            height: 52px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .add-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .add-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Скрываем radio */
+        .filters-wrapper input[type="radio"] {
+            display: none;
+        }
+
+        /* Фильтры */
+        .filters {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 20px;
+            background: #f0f0f8;
+            padding: 5px;
+            border-radius: 12px;
+        }
+
+        .filter-btn {
+            flex: 1;
+            padding: 10px 16px;
+            border-radius: 9px;
+            background: transparent;
+            color: #8888a0;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            user-select: none;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            color: #555;
+        }
+
+        /* Активный фильтр */
+        #f-all:checked ~ .filters label[for="f-all"],
+        #f-active:checked ~ .filters label[for="f-active"],
+        #f-done:checked ~ .filters label[for="f-done"] {
+            background: white;
+            color: #667eea;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Список задач */
+        .task-list {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 14px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            background: #fafafe;
+            border: 1px solid #f0f0f8;
+            transition: all 0.3s ease;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .task-item:hover {
+            background: #f5f5ff;
+            border-color: #e0e0f0;
+            transform: translateX(4px);
+        }
+
+        .task-item input[type="checkbox"] {
+            display: none;
+        }
+
+        /* Кружок чекбокса */
+        .checkbox {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            border: 2.5px solid #d0d0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .checkbox:hover {
+            border-color: #667eea;
+            transform: scale(1.1);
+        }
+
+        /* Когда чекбокс отмечен */
+        .task-item input[type="checkbox"]:checked + .checkbox {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: transparent;
+            transform: scale(1);
+            animation: checkPop 0.3s ease;
+        }
+
+        @keyframes checkPop {
+            0% { transform: scale(0.8); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .task-item input[type="checkbox"]:checked + .checkbox::after {
+            content: '✓';
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        /* Зачёркивание текста */
+        .task-item input[type="checkbox"]:checked ~ .task-text {
+            text-decoration: line-through;
+            color: #b0b0c0;
+        }
+
+        .task-text {
+            font-size: 1.05rem;
+            color: #333345;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        /* ===== ФИЛЬТРАЦИЯ ЧЕРЕЗ CSS ===== */
+        #f-active:checked ~ .task-list .task-item.completed {
+            display: none;
+        }
+
+        #f-done:checked ~ .task-list .task-item:not(.completed) {
+            display: none;
+        }
+
+        /* Кнопка удаления */
+        .clear-btn {
+            display: block;
+            margin: 10px auto 0;
+            padding: 12px 24px;
+            border: 2px solid #f0f0f8;
+            border-radius: 12px;
+            background: transparent;
+            color: #a0a0b0;
+            font-size: 0.9rem;
+            font-weight: 500;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .clear-btn:hover {
+            border-color: #ff6b6b;
+            color: #ff6b6b;
+            background: #fff5f5;
+            transform: translateY(-1px);
+        }
+
+        .clear-btn:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app">
+        <h1 class="title">📋 Задачи</h1>
+        <p class="subtitle" id="counter">Осталось: 1 из 2</p>
+
+        <div class="input-row">
+            <input type="text" id="taskInput" placeholder="Новая задача">
+            <button class="add-btn" id="addBtn">+</button>
+        </div>
+
+        <div class="filters-wrapper">
+            <input type="radio" name="filter" id="f-all" checked>
+            <input type="radio" name="filter" id="f-active">
+            <input type="radio" name="filter" id="f-done">
+
+            <div class="filters">
+                <label for="f-all" class="filter-btn">Все</label>
+                <label for="f-active" class="filter-btn">Активные</label>
+                <label for="f-done" class="filter-btn">Готово</label>
+            </div>
+
+            <ul class="task-list" id="taskList">
+                <li class="task-item">
+                    <input type="checkbox" class="task-checkbox">
+                    <label class="checkbox"></label>
+                    <span class="task-text">бг</span>
+                </li>
+                <li class="task-item completed">
+                    <input type="checkbox" class="task-checkbox" checked>
+                    <label class="checkbox"></label>
+                    <span class="task-text">ко</span>
+                </li>
+            </ul>
+        </div>
+
+        <button class="clear-btn" id="clearBtn"> Удалить выполненные</button>
+    </div>
+
+    <script>
+        const taskInput = document.getElementById('taskInput');
+        const addBtn = document.getElementById('addBtn');
+        const taskList = document.getElementById('taskList');
+        const counter = document.getElementById('counter');
+        const clearBtn = document.getElementById('clearBtn');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+
+        // Добавление задачи
+        function addTask() {
+            const text = taskInput.value.trim();
+            if (text === '') return;
+
+            const li = document.createElement('li');
+            li.className = 'task-item';
+            li.innerHTML = `
+                <input type="checkbox" class="task-checkbox">
+                <label class="checkbox"></label>
+                <span class="task-text">${text}</span>
+            `;
+
+            // Добавляем обработчик чекбокса
+            const checkbox = li.querySelector('.task-checkbox');
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    li.classList.add('completed');
+                } else {
+                    li.classList.remove('completed');
+                }
+                updateCounter();
+            });
+
+            taskList.appendChild(li);
+            taskInput.value = '';
+            updateCounter();
+        }
+
+        // Обновление счётчика
+        function updateCounter() {
+            const allTasks = taskList.querySelectorAll('.task-item');
+            const completedTasks = taskList.querySelectorAll('.task-item.completed');
+            const remaining = allTasks.length - completedTasks.length;
+            counter.textContent = `Осталось: ${remaining} из ${allTasks.length}`;
+        }
+
+        // Кнопка добавления
+        addBtn.addEventListener('click', addTask);
+
+        // Enter в поле ввода
+        taskInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addTask();
+            }
+        });
+
+        // Фильтры
+        document.getElementById('f-all').addEventListener('change', function() {
+            if (this.checked) {
+                taskList.querySelectorAll('.task-item').forEach(item => {
+                    item.style.display = 'flex';
+                });
+            }
+        });
+
+        document.getElementById('f-active').addEventListener('change', function() {
+            if (this.checked) {
+                taskList.querySelectorAll('.task-item').forEach(item => {
+                    if (item.classList.contains('completed')) {
+                        item.style.display = 'none';
+                    } else {
+                        item.style.display = 'flex';
+                    }
+                });
+            }
+        });
+
+        document.getElementById('f-done').addEventListener('change', function() {
+            if (this.checked) {
+                taskList.querySelectorAll('.task-item').forEach(item => {
+                    if (item.classList.contains('completed')) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            }
+        });
+
+        // Удаление выполненных
+        clearBtn.addEventListener('click', function() {
+            const completedTasks = taskList.querySelectorAll('.task-item.completed');
+            completedTasks.forEach(task => {
+                task.style.animation = 'fadeOut 0.3s ease';
+                setTimeout(() => task.remove(), 300);
+            });
+            updateCounter();
+        });
+
+        // Добавляем анимацию удаления
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeOut {
+                from {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateX(20px);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Инициализация счётчика
+        updateCounter();
+    </script>
+
+</body>
+</html>
